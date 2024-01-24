@@ -14,7 +14,7 @@ def karstuma_karte(datne):
 def datu_biezums(datne, collom):
     data_file = pd.read_csv(datne)
     sb.distplot(data_file[collom], color='r')
-    plt.title(collom.capitalize() + "biežums", fontsize=16)
+    plt.title(collom.capitalize() + " biežums", fontsize=16)
     plt.xlabel(collom.capitalize(), fontsize=14)
     plt.ylabel("Biežums", fontsize=12)
     plt.xticks(fontsize=14)
