@@ -25,4 +25,14 @@ def dabut_info(datne):
 
     tabulas = galvena_dala.find_all('table')
 
-saglaba(URL, LAPAS+"pirma.html")
+    rindas = tabulas[2].find_all('tr')
+
+    for rinda in rindas[1:]:
+        lauki = rinda.find_all('td')
+        print(lauki)
+        auto = {}
+        auto['sludinajums_saite'] = lauki[1].find('a')['href']
+        print(auto['sludinajums_saite'])
+
+# saglaba(URL, LAPAS+"pirma.html")
+dabut_info("lapas/pirma.html")
