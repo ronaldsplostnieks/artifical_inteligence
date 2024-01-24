@@ -16,7 +16,7 @@ def datu_biezums(datne, collom):
     sb.distplot(data_file[collom], color='r')
     plt.title(collom.capitalize() + "biežums", fontsize=16)
     plt.xlabel(collom.capitalize(), fontsize=14)
-    plt.ylabel("Biežums", fontsize=14)
+    plt.ylabel("Biežums", fontsize=12)
     plt.xticks(fontsize=14)
     plt.show()
     return
@@ -25,4 +25,4 @@ def datu_biezums(datne, collom):
 datne1 = "data/auto_simple.csv"
 datne2 = "data/auto_imports.csv"
 # karstuma_karte(datne2)
-datu_biezums(datne2, "Volume")
+datu_biezums(datne2, "price")
