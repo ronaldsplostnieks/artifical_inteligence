@@ -57,9 +57,30 @@ def dabut_info(datne):
         auto['cena'] = lauki[7].get_text()
         dati.append(auto)
     return dati
-# Līdzīgā stilā iegūstiet informāciju par auto (aprakstu), marku, gadu, atsevišķi dzinēja tilpumu un tipu 
-# (benzīns/elektro/dīzelis/hibrīds), nobraukumu un cenu. Kur iespējams, cenšaties skaitļus no teksta pārveidot
-# par skaitļiem (izvilkt no teksta ārā).
+
+def saglaba_datus(dati):
+    with open(DATI+"sslv.csv", 'w', encoding="utf-8") as f:
+        lauku_nosakumi = ['sludinajuma_saite', 'bilde','apraksts', 'marka', 'gads', 'tips', 'tilpums', 'nobraukums', 'cena']
+        w = csv.DictWriter(f, fieldnames= lauku_nosakumi)
+        w.writeheader()
+        for auto in dati:
+            w.writerow(auto)
+        return
 
 
-print(dabut_info(LAPAS+"pirma.html"))
+def atvilkt_lapas(skaits):
+    for i in range(1, skaits+1):
+        saglaba("{}page{}.html".format(URL, i), '{}lapas{}.html'.format(LAPAS, i))
+        time.sleep(0.1)
+    return
+
+def dabut_info_visu(skaits):
+    visi_dati = []
+    for i in range(1, skaits):
+        dati = dabut_info("{}lapa{}.html".format(LAPAS, i))
+        visi_dati += dati
+    return visi_dati
+
+# atvilkt_lapas(10)
+info = dabut_info_visu(10)
+saglaba_datus(dabut_info(LAPAS+"pirma.html"))
