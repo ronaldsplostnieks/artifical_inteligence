@@ -35,52 +35,85 @@ def dabut_info(datne):
         lauki = rinda.find_all('td')
 
         auto = {}
-        auto['sludinajuma_saite'] = lauki[1].find('a')['href']
-        auto['bilde'] = lauki[1].find('img')['src']
-        auto['apraksts'] = lauki[2].get_text()
-        auto['marka'] = lauki[3].get_text()
-        auto['gads'] = lauki[4].get_text()
-        temp = lauki[5].get_text()
-        if temp[-1] == 'D':
-            auto['tips'] = 'Dīzelis'
-            auto['tilpums'] = temp[:-1]
-        elif  temp[-1] == 'E':
-            auto['tips'] = 'Elektro'
-            auto['tilpums'] = temp[:-1]
-        elif  temp[-1] == 'H':
-            auto['tips'] = 'Hibrīds'
-            auto['tilpums'] = temp[:-1]
+        if lauki[1].find('a')['href'] != "":
+            auto['sludinajuma_saite'] = "https://www.ss.lv/"+lauki[1].find('a')['href']
         else:
-            auto['tips'] = 'Benzīns'
-            auto['tilpums'] = temp  
-        auto['nobraukums'] = lauki[6].get_text()
-        auto['cena'] = lauki[7].get_text()
+            auto['sludinajuma_saite'] = ""
+
+        if lauki[1].find('img')['src'] != "":
+            auto['bilde'] = lauki[1].find('img')['src']
+        else:
+            auto['bilde'] = ""
+
+        if lauki[2].get_text() != "":
+            auto['apraksts'] = lauki[2].find('a').get_text()
+        else:
+            auto['apraksts'] = ""
+
+        if lauki[3].get_text() != "":
+            auto['marka'] = lauki[3].get_text()
+        else:
+            auto['marka'] = ""
+
+        if lauki[4].get_text() != "":
+            auto['gads'] = lauki[4].get_text()
+        else:
+            auto['gads'] = ""
+        if lauki[5].get_text != "":
+            temp = lauki[5].get_text()
+            if temp[-1] == 'D':
+                auto['tips'] = 'Dīzelis'
+                auto['tilpums'] = temp[:-1]
+            elif  temp[-1] == 'E':
+                auto['tips'] = 'Elektro'
+                auto['tilpums'] = temp[:-1]
+            elif  temp[-1] == 'H':
+                auto['tips'] = 'Hibrīds'
+                auto['tilpums'] = temp[:-1]
+            else:
+                auto['tips'] = 'Benzīns'
+                auto['tilpums'] = temp  
+        else: 
+            auto['tips'] = ''
+            auto['tilpums'] = ''
+
+        if lauki[6].get_text() != "":
+            auto['nobraukums'] = lauki[6].get_text()
+        else:
+            auto['nobraukums'] = ""
+
+        if lauki[7].get_text() != "":
+            auto['cena'] = lauki[7].get_text()
+        else:
+            auto['cena'] = ""
         dati.append(auto)
     return dati
 
 def saglaba_datus(dati):
-    with open(DATI+"sslv.csv", 'w', encoding="utf-8") as f:
-        lauku_nosakumi = ['sludinajuma_saite', 'bilde','apraksts', 'marka', 'gads', 'tips', 'tilpums', 'nobraukums', 'cena']
-        w = csv.DictWriter(f, fieldnames= lauku_nosakumi)
+    with open(DATI+"sslv.csv", "w", encoding='utf-8') as f:
+        lauku_nosaukumi = ['sludinajuma_saite','bilde', 'apraksts', 'marka', 'gads', 'tips', 'tilpums', 'nobraukums', 'cena']
+        w = csv.DictWriter(f, fieldnames= lauku_nosaukumi)
         w.writeheader()
         for auto in dati:
             w.writerow(auto)
-        return
+    return
+
 
 
 def atvilkt_lapas(skaits):
-    for i in range(1, skaits+1):
-        saglaba("{}page{}.html".format(URL, i), '{}lapas{}.html'.format(LAPAS, i))
-        time.sleep(0.1)
+    for i in range(1,skaits+1):
+        saglaba("{}page{}.html".format(URL, i), "{}lapa{}.html".format(LAPAS, i))
+        time.sleep(1)
     return
 
-def dabut_info_visu(skaits):
+
+def dabut_info_daudz(skaits):
     visi_dati = []
-    for i in range(1, skaits):
-        dati = dabut_info("{}lapa{}.html".format(LAPAS, i))
+    for i in range(1, skaits+1):
+        dati = dabut_info("{}lapa{}.html".format(LAPAS,i))
         visi_dati += dati
     return visi_dati
 
-# atvilkt_lapas(10)
-info = dabut_info_visu(10)
-saglaba_datus(dabut_info(LAPAS+"pirma.html"))
+# atvilkt_lapas(5)
+info = dabut_info_daudz(5)
+saglaba_datus(info)
