@@ -35,31 +35,33 @@ def dabut_info(datne):
         lauki = rinda.find_all('td')
 
         auto = {}
-        if lauki[1].find('a')['href'] != "":
-            auto['sludinajuma_saite'] = "https://www.ss.lv/"+lauki[1].find('a')['href']
+        if lauki[1].find('a')['href'] != " ":
+            auto['sludinajuma_saite'] = "https://www.ss.lv/"+lauki[1].find('a')['href']+" "
         else:
-            auto['sludinajuma_saite'] = ""
+            auto['sludinajuma_saite'] = " "
 
-        if lauki[1].find('img')['src'] != "":
-            auto['bilde'] = lauki[1].find('img')['src']
+        if lauki[1].find('img')['src'] != " ":
+            auto['bilde'] = lauki[1].find('img')['src']+" "
         else:
-            auto['bilde'] = ""
+            auto['bilde'] = " "
 
-        if lauki[2].get_text() != "":
-            auto['apraksts'] = lauki[2].find('a').get_text()
+        if lauki[2].get_text() != " ":
+            apraksts_temp = lauki[2].find('a').get_text()
+            apraksts_temp = apraksts_temp.replace("\t", "").replace("\r", "").replace("\n", "")
+            auto['apraksts'] = apraksts_temp
         else:
-            auto['apraksts'] = ""
+            auto['apraksts'] = " "
 
-        if lauki[3].get_text() != "":
+        if lauki[3].get_text() != " ":
             auto['marka'] = lauki[3].get_text()
         else:
-            auto['marka'] = ""
+            auto['marka'] = " "
 
-        if lauki[4].get_text() != "":
+        if lauki[4].get_text() != " ":
             auto['gads'] = lauki[4].get_text()
         else:
-            auto['gads'] = ""
-        if lauki[5].get_text != "":
+            auto['gads'] = " "
+        if lauki[5].get_text != " ":
             temp = lauki[5].get_text()
             if temp[-1] == 'D':
                 auto['tips'] = 'Dīzelis'
@@ -74,18 +76,18 @@ def dabut_info(datne):
                 auto['tips'] = 'Benzīns'
                 auto['tilpums'] = temp  
         else: 
-            auto['tips'] = ''
-            auto['tilpums'] = ''
+            auto['tips'] = " "
+            auto['tilpums'] = " "
 
-        if lauki[6].get_text() != "":
+        if lauki[6].get_text() != " ":
             auto['nobraukums'] = lauki[6].get_text()
         else:
-            auto['nobraukums'] = ""
+            auto['nobraukums'] = " "
 
-        if lauki[7].get_text() != "":
+        if lauki[7].get_text() != " ":
             auto['cena'] = lauki[7].get_text()
         else:
-            auto['cena'] = ""
+            auto['cena'] = " "
         dati.append(auto)
     return dati
 

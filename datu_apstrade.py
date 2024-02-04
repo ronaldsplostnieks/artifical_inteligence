@@ -22,7 +22,12 @@ def datu_biezums(datne, collom):
     return
 
 
-datne1 = "data/auto_simple.csv"
-datne2 = "data/auto_imports.csv"
+datne1 = "dati/auto_simple.csv"
+datne2 = "dati/auto_imports.csv"
+datne_sslv = "dati/sslv.csv"
 # karstuma_karte(datne2)
-datu_biezums(datne2, "price")
+# datu_biezums(datne2, "price")
+karstuma_karte(datne_sslv)
+
+# Izveidot karstuma karti (heatmap) no iegūtajiem datiem 
+# (ko darījām datu vizualizācijas sadaļā), lai redzētu, kuriem datiem ir korelācija.
