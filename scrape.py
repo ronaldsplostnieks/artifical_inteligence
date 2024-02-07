@@ -79,13 +79,13 @@ def dabut_info(datne):
             auto['tips'] = " "
             auto['tilpums'] = " "
 
-        if lauki[6].get_text() != " ":
-            auto['nobraukums'] = lauki[6].get_text()
+        if lauki[6].get_text() != "-":
+            auto['nobraukums'] = lauki[6].get_text().replace(" tūkst.", "000")
         else:
-            auto['nobraukums'] = " "
+            continue
 
         if lauki[7].get_text() != " ":
-            auto['cena'] = lauki[7].get_text()
+            auto['cena'] = lauki[7].get_text().replace("  €", "").replace(",", "")
         else:
             auto['cena'] = " "
         dati.append(auto)
@@ -116,6 +116,6 @@ def dabut_info_daudz(skaits):
         visi_dati += dati
     return visi_dati
 
-# atvilkt_lapas(5)
+atvilkt_lapas(20)
 info = dabut_info_daudz(5)
 saglaba_datus(info)
