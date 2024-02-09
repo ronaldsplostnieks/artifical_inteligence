@@ -79,6 +79,8 @@ modelis, rezultats = trenet_modeli(modelis, X_train, y_train, X_test)
 
 modela_kvalitate(y_test, rezultats)
 
+# gads, tilpums, nobraukums
+# cena
 dati_sslv = [1998, 2.4, 231000]
 sslv_rez =  1250
 print(prognozejam_rezultatu(modelis, [dati_sslv]), sslv_rez)

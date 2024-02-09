@@ -104,7 +104,7 @@ def dabut_info(datne):
     return dati_diesel, dati_petrol, dati_hybrid, dati_electric
 
 def saglaba_datus(dati, type):
-    with open(DATI+"sslv.csv", "w", encoding='utf-8') as f:
+    with open(DATI+"sslv_{}.csv".format(type), "w", encoding='utf-8') as f:
         lauku_nosaukumi = ['sludinajuma_saite','bilde', 'apraksts', 'marka', 'gads', 'tips', 'tilpums', 'nobraukums', 'cena']
         w = csv.DictWriter(f, fieldnames= lauku_nosaukumi)
         w.writeheader()
@@ -122,13 +122,22 @@ def atvilkt_lapas(skaits):
 
 
 def dabut_info_daudz(skaits):
-    visi_dati = []
+    dati_diesel = []
+    dati_petrol = []
+    dati_hybrid = []
+    dati_electric = []
     for i in range(1, skaits+1):
-        dati = dabut_info("{}lapa{}.html".format(LAPAS,i))
-        visi_dati += dati
-    return visi_dati
+        info_diesel, info_petrol, info_hybrid, info_electric = dabut_info("{}lapa{}.html".format(LAPAS,i))
+        dati_diesel += info_diesel
+        dati_petrol += info_petrol
+        dati_hybrid += info_hybrid
+        dati_electric += info_electric
 
-atvilkt_lapas(20)
-info_diesel, info_petrol, info_hybrid, info_electric = dabut_info_daudz(5)
-# saglaba_datus()
-print(info_diesel)
+    return dati_diesel, dati_petrol, dati_hybrid, dati_electric
+
+atvilkt_lapas(50)
+info_diesel, info_petrol, info_hybrid, info_electric = dabut_info_daudz(50)
+saglaba_datus(info_diesel, "diesel")
+saglaba_datus(info_petrol, "petrol")
+saglaba_datus(info_hybrid, "hybrid")
+saglaba_datus(info_electric, "electric")
