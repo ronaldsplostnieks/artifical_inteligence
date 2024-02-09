@@ -20,7 +20,10 @@ def saglaba(url, datne):
 # saglaba(URL, LAPAS+"pirma.html")
 
 def dabut_info(datne):
-    dati = []
+    dati_diesel = []
+    dati_petrol = []
+    dati_hybrid = []
+    dati_electric = []
     with open(datne, "r", encoding="utf-8") as f:
         html = f.read()
     
@@ -88,10 +91,19 @@ def dabut_info(datne):
             auto['cena'] = lauki[7].get_text().replace("  €", "").replace(",", "")
         else:
             auto['cena'] = " "
-        dati.append(auto)
-    return dati
 
-def saglaba_datus(dati):
+        if auto['tips'] == 'Dīzelis':
+            dati_diesel.append(auto)
+        elif auto['tips'] == 'Benzīns':
+            dati_petrol.append(auto)
+        elif auto['tips'] == 'Hibrīds':
+            dati_hybrid.append(auto)
+        else:
+            dati_electric.append(auto)
+           
+    return dati_diesel, dati_petrol, dati_hybrid, dati_electric
+
+def saglaba_datus(dati, type):
     with open(DATI+"sslv.csv", "w", encoding='utf-8') as f:
         lauku_nosaukumi = ['sludinajuma_saite','bilde', 'apraksts', 'marka', 'gads', 'tips', 'tilpums', 'nobraukums', 'cena']
         w = csv.DictWriter(f, fieldnames= lauku_nosaukumi)
@@ -117,5 +129,6 @@ def dabut_info_daudz(skaits):
     return visi_dati
 
 atvilkt_lapas(20)
-info = dabut_info_daudz(5)
-saglaba_datus(info)
+info_diesel, info_petrol, info_hybrid, info_electric = dabut_info_daudz(5)
+# saglaba_datus()
+print(info_diesel)
